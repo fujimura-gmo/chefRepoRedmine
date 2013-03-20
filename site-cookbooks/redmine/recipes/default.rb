@@ -22,6 +22,14 @@ bash "mysql-setting" do
   EOC
 end
 
+template "database.yml" do
+  path "/var/lib/redmine/config/database.yml"
+  source "database.yml.erb"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
 bash "install-bundle" do
   code <<-EOC
     gem install bundler
