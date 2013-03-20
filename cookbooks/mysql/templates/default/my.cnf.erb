@@ -267,6 +267,7 @@ max_allowed_packet      = <%= node['mysql']['tunable']['max_allowed_packet'] %>
 
 [mysql]
 #no-auto-rehash # faster start of mysql but no tab completition
+default-character-set = <%= node['mysql']['tunable']['character-set-server'] %>
 
 [isamchk]
 key_buffer                = <%= node['mysql']['tunable']['max_allowed_packet'] %>
