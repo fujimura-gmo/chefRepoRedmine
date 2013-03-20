@@ -55,9 +55,9 @@ bash "db-migrate" do
   EOC
 end
 
-bash "load-default-data" do
-  code <<-EOC
-    cd /var/lib/redmine;
-    RAILS_ENV=production rake redmine:load_default_data
-  EOC
-end
+#bash "load-default-data" do
+#  code <<-EOC
+#    cd /var/lib/redmine;
+#    RAILS_ENV=production rake redmine:load_default_data
+#  EOC
+#end
