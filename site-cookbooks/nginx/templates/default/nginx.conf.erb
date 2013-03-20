@@ -11,13 +11,23 @@ events {
 http {
   include       /etc/nginx/mime.types;
   default_type  application/octet-stream;
-
+  sendfile        on;
+  keepalive_timeout  65;
+  upstream redmine {
+    server unix:/tmp/redmine.sock;
+  }
   server {
     listen      <%= node['nginx']['port'] %>;
     server_name localhost;
-    location / {
-      root  /usr/share/nginx/html;
-      index index.html index.htm;
+    root /var/lib/redmine;
+    error_log /var/lib/redmine/log/nginx_error.log;
+    try_files $uri @unicorn;
+    location @unicorn {
+      if (-f $request_filename) { break; }
+      proxy_set_header X-Real-IP  $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_pass http://redmine;
     }
   }
 }
