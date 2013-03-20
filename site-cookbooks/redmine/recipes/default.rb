@@ -39,7 +39,27 @@ end
 bash "exec-bundle" do
   code <<-EOC
     cd /var/lib/redmine;
-    bundle exec install --path vendor/bundle --without development test postgresql sqlite;
+    bundle install --without development test rmagick;
   EOC
 end
 
+bash "generate_secret_token" do
+  code <<-EOC
+    cd /var/lib/redmine;
+    rake generate_secret_token
+  EOC
+end
+
+bash "db-migrate" do
+  code <<-EOC
+    cd /var/lib/redmine;
+    RAILS_ENV=production rake db:migrate
+  EOC
+end
+
+bash "load-default-data" do
+  code <<-EOC
+    cd /var/lib/redmine;
+    RAILS_ENV=production rake redmine:load_default_data
+  EOC
+end
