@@ -40,19 +40,19 @@ gem_package 'bundler' do
   action :install
 end
 
-bash "http_proxy" do
+bash "exec-bundle" do
   if /^172\.16\.96\./ =~ node[:ipaddress] then
     code <<-EOC
       export http_proxy=192.168.232.51:7070;
+      cd /var/lib/redmine;
+      bundle install --without development test rmagick;
+    EOC
+  else
+    code <<-EOC
+      cd /var/lib/redmine;
+      bundle install --without development test rmagick;
     EOC
   end
-end
-
-bash "exec-bundle" do
-  code <<-EOC
-    cd /var/lib/redmine;
-    bundle install --without development test rmagick;
-  EOC
 end
 
 bash "generate_secret_token" do
