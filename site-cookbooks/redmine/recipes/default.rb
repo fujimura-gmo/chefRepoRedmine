@@ -6,6 +6,12 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+%w{gcc make ruby ruby-devel rubygems}.each do |pkg|
+  package pkg do
+    action :install
+  end
+end
+
 git "/var/lib/redmine" do
   repository "git://github.com/redmine/redmine.git"
   reference "master"
@@ -32,6 +38,14 @@ end
 
 gem_package 'bundler' do
   action :install
+end
+
+bash "http_proxy" do
+  if /^172\.16\.96\./ =~ node[:ipaddress] then
+    code <<-EOC
+      export http_proxy=192.168.232.51:7070;
+    EOC
+  end
 end
 
 bash "exec-bundle" do
