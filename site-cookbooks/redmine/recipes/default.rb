@@ -30,10 +30,8 @@ template "database.yml" do
   mode 0644
 end
 
-bash "install-bundle" do
-  code <<-EOC
-    gem install bundler
-  EOC
+gem_package 'bundler' do
+  action :install
 end
 
 bash "exec-bundle" do
