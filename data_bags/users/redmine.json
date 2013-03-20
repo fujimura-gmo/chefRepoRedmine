@@ -1,0 +1,6 @@
+{
+  "id" : "redmine",
+  "username" : "redmine",
+  "home" : "/home/redmine",
+  "shell" : "/bin/bash"
+}
