@@ -21,6 +21,10 @@ http {
     server_name localhost;
     root /var/lib/redmine;
     error_log /var/lib/redmine/log/nginx_error.log;
+    location /nginx_status {
+      stub_status on;
+      access_log off;
+    }
     try_files $uri @unicorn;
     location @unicorn {
       if (-f $request_filename) { break; }
