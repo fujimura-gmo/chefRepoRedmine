@@ -6,10 +6,16 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-git "/var/redmine" do
+git "/var/lib/redmine" do
   repository "git://github.com/redmine/redmine.git"
   reference "master"
   action :checkout
   user "root"
   group "root"
+end
+
+bash "install-bundle" do
+  code <<-EOC
+    gem install bundler
+  EOC
 end
