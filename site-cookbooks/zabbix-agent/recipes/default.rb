@@ -15,3 +15,12 @@ template "zabbix_agentd.conf" do
   mode 0644
   notifies :restart, 'service[zabbix-agent]'
 end
+
+template "userparameter_nginx.conf" do
+  path "/etc/zabbix/zabbix_agentd.d/userparameter_nginx.conf"
+  source "userparameter_nginx.conf.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  notifies :restart, 'service[zabbix-agent]'
+end
