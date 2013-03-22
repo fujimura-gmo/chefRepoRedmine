@@ -1,0 +1,33 @@
+{
+  "base": {
+    "hostname" : "localhost"
+  },
+
+  "nginx": {
+    "port" : 80
+  },
+
+  "mysql": {
+    "server_root_password": "iloverandompasswordsbutthiswilldo",
+    "server_repl_password": "iloverandompasswordsbutthiswilldo",
+    "server_debian_password": "iloverandompasswordsbutthiswilldo"
+  },
+
+  "zabbix-agent": {
+    "server-ip" : "172.16.96.7",
+    "hostname" : "localhost"
+  },
+
+  "run_list":[
+    "recipe[base]",
+    "recipe[login_users]",
+    "recipe[yum::epel]",
+    "recipe[zabbix-agent]",
+    "recipe[mysql::server]",
+    "recipe[rake]",
+    "recipe[git]",
+    "recipe[redmine]",
+    "recipe[unicorn]",
+    "recipe[nginx]"
+  ]
+}
