@@ -1,3 +1,4 @@
+UserParameter=nginx.echo1[*],echo 1
 UserParameter=nginx.active[*],wget -O- -q $1 | awk '/^Active/ {print $NF}'
 UserParameter=nginx.reading[*],wget -O- -q $1 | awk '/Reading/ {print $$2}'
 UserParameter=nginx.writing[*],wget -O- -q $1 | awk '/Writing/ {print $$4}'
